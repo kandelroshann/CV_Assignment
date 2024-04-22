@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream</title>
+</head>
+<body>
+    <h1>Live Video Stream</h1>
+    <div>
+        <img id="video_feed" src="/video_feed" width="640" height="480" />
+    </div>
+    <div>
+        <form action="/start_recording" method="get">
+            <button type="submit">Start Recording</button>
+        </form>
+        <form action="/stop_recording" method="get">
+            <button type="submit">Stop Recording</button>
+        </form>
+    </div>
+</body>
+</html>
