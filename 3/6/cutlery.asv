@@ -1,0 +1,38 @@
+dataset = imageDatastore('/Users/roshankandel/Downloads/untitled folder/','IncludeSubfolders',true,'LabelSource','foldernames');
+tbl = countEachLabel(dataset);
+disp(tbl)
+figure
+montage(dataset.Files(1:16:end))
+
+[trainingSet, validationSet] = splitEachLabel(dataset, 0.6, 'randomize');
+bag = bagOfFeatures(trainingSet);
+
+img = readimage(dataset, 1);
+featureVector = encode(bag, img);
+
+% Plot the histogram of visual word occurrences
+figure
+bar(featureVector)
+title('Visual word occurrences')
+xlabel('Visual word index')
+ylabel('Frequency of occurrence')
+
+categoryClassifier = trainImageCategoryClassifier(trainingSet, bag);
+
+% Evaluate the classifier on the training set
+confMatrix_train = evaluate(categoryClassifier, trainingSet);
+
+% Display confusion matrix for training set
+disp('Confusion Matrix (Training Set):');
+disp(confMatrix_train);
+
+
+% Evaluate the classifier on the validation set
+confMatrix_val = evaluate(categoryClassifier, validationSet);
+
+% Display confusion matrix for validation set
+disp('Confusion Matrix (Validation Set):');
+disp(confMatrix_val);
+
+
+
